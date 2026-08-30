@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout build configuration
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install build dependencies
         env:
@@ -72,6 +72,8 @@ jobs:
           grep -q '^CONFIG_MTK_MT_WIFI=m$' .config
           grep -q '^CONFIG_MTK_WIFI_MODE_AP=m$' .config
           grep -q '^CONFIG_MTK_MT_AP_SUPPORT=m$' .config
+          grep -q '^# CONFIG_MTK_PRE_CAL_TRX_SET1_SUPPORT is not set$' .config
+          grep -q '^# CONFIG_MTK_PRE_CAL_TRX_SET2_SUPPORT is not set$' .config
           if grep -Eq '^CONFIG_PACKAGE_(luci-app-passwall|xray-core|v2ray-geoip|v2ray-geosite|hysteria|haproxy|luci-app-frpc|luci-app-frps|frpc|frps|luci-app-ddns-go|ddns-go|luci-app-serverchan|luci-app-smartdns|smartdns|luci-app-vlmcsd|vlmcsd|luci-app-ttyd|ttyd)=y$' .config; then
             echo "A forbidden optional service was selected" >&2
             exit 1
